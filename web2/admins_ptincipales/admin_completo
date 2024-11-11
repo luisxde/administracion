@@ -1,187 +1,873 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestión de Administradores</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f9;
-            margin: 0;
-            padding: 20px;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        .menu-container {
-            width: 300px;
-            margin: 0 auto;
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-        }
-        .menu-container a {
-            display: block;
-            background-color: #4CAF50;
-            color: white;
-            text-decoration: none;
-            padding: 12px;
-            margin-bottom: 10px;
-            text-align: center;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-        .menu-container a:hover {
-            background-color: #45a049;
-        }
-        .form-container {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            margin-top: 20px;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-        .form-container input, .form-container select {
-            width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-        }
-        .form-container button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px;
-            border: none;
-            border-radius: 5px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-        .form-container button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Las Aguilas Del Saber</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../css/bott.css" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
-<body>
 
-    <h1>Gestión de Administradores</h1>
-    
-    <div class="menu-container">
-        <a href="#" onclick="showForm('addAdmin')">Agregar nuevo administrador</a>
-        <a href="#" onclick="showForm('deleteAdmin')">Eliminar administrador</a>
-        <a href="#" onclick="showForm('modifyAdmin')">Modificar datos de administrador</a>
-        <a href="#" onclick="showForm('listAdmins')">Listar administradores</a>
-        <a href="#" onclick="showForm('assignRole')">Asignar/Modificar roles y permisos</a>
-        <a href="#" onclick="showForm('viewDetails')">Ver detalles de un administrador</a>
-    </div>
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-danger">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="admin1.php">
+            <img src="../img/logo23.png" alt="Logo" style="height: 50px; margin-right: 1px;">
+            Las Aguilas del Saber
+        </a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+                class="fas fa-bars"></i></button>
 
-    <!-- Formulario para agregar administrador -->
-    <div id="addAdmin" class="form-container" style="display: none;">
-        <h2>Agregar Administrador</h2>
-        <form action="#" method="POST">
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required>
-            
-            <label for="correo">Correo electrónico:</label>
-            <input type="email" id="correo" name="correo" required>
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
 
-            <label for="rol">Rol:</label>
-            <select id="rol" name="rol" required>
-                <option value="Superadministrador">Superadministrador</option>
-                <option value="Moderador">Moderador</option>
-                <option value="Administrador de sistema">Administrador de sistema</option>
-            </select>
-
-            <button type="submit">Agregar Administrador</button>
-        </form>
-    </div>
-
-    <!-- Formulario para eliminar administrador -->
-    <div id="deleteAdmin" class="form-container" style="display: none;">
-        <h2>Eliminar Administrador</h2>
-        <form action="#" method="POST">
-            <label for="adminID">ID del administrador:</label>
-            <input type="number" id="adminID" name="adminID" required>
-            <button type="submit">Eliminar Administrador</button>
-        </form>
-    </div>
-
-    <!-- Formulario para modificar administrador -->
-    <div id="modifyAdmin" class="form-container" style="display: none;">
-        <h2>Modificar Administrador</h2>
-        <form action="#" method="POST">
-            <label for="adminID">ID del administrador:</label>
-            <input type="number" id="adminID" name="adminID" required>
-            
-            <label for="nuevoNombre">Nuevo nombre:</label>
-            <input type="text" id="nuevoNombre" name="nuevoNombre">
-            
-            <label for="nuevoCorreo">Nuevo correo:</label>
-            <input type="email" id="nuevoCorreo" name="nuevoCorreo">
-            
-            <label for="nuevoRol">Nuevo rol:</label>
-            <select id="nuevoRol" name="nuevoRol">
-                <option value="Superadministrador">Superadministrador</option>
-                <option value="Moderador">Moderador</option>
-                <option value="Administrador de sistema">Administrador de sistema</option>
-            </select>
-
-            <button type="submit">Modificar Administrador</button>
-        </form>
-    </div>
-
-    <!-- Formulario para listar administradores -->
-    <div id="listAdmins" class="form-container" style="display: none;">
-        <h2>Administradores Registrados</h2>
-        <p>En esta sección se listarán los administradores del sistema.</p>
-        <ul id="adminList">
-            <!-- Lista de administradores aparecería aquí -->
+                    <li>
+                        <hr class="dropdown-divider" />
+                    </li>
+                    <li><a class="dropdown-item" href="../model/cerrar_session.php">Salir</a></li>
+                </ul>
+            </li>
         </ul>
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-danger" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+
+                        <a class="nav-link" href="administrativo.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Panel Administrativo
+                        </a>
+                        <div class="sb-sidenav-menu-heading">General</div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                            data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Paginas
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
+                            data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="admin1.php">Textos-Pagina Principal</a>
+                                <a class="nav-link" href="admin2.php">Textos-Historia del Plantel</a>
+                                <a class="nav-link" href="admin3.php">Textos-Blog</a>
+                                <a class="nav-link" href="admin4.php">Textos-Contactanos</a>
+                                <a class="nav-link" href="admin8.php">Imagenes</a>
+                                <a class="nav-link" href="administrativo.php">Padres</a>
+                                <a class="nav-link" href="admin5.php">Comunicados</a>
+                                <a class="nav-link" href="admin6.php">Profesores</a>
+                                <a class="nav-link" href="admin7.php">Galeria</a>
+                                <a class="nav-link" href="#">Login</a>
+                                <a class="nav-link" href="#">Inscripciones</a>
+                            </nav>
+                        </div>
+
+                    </div>
+                </div>
+
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">Textos de Pagina Principal</h1>
+
+                    <?php include_once("./admin/texto1.php");?>
+
+                </div>
+            </main>
+
+        </div>
     </div>
 
-    <!-- Formulario para asignar/Modificar roles -->
-    <div id="assignRole" class="form-container" style="display: none;">
-        <h2>Asignar o Modificar Rol</h2>
-        <form action="#" method="POST">
-            <label for="adminID">ID del administrador:</label>
-            <input type="number" id="adminID" name="adminID" required>
-            
-            <label for="rol">Nuevo rol:</label>
-            <select id="rol" name="rol" required>
-                <option value="Superadministrador">Superadministrador</option>
-                <option value="Moderador">Moderador</option>
-                <option value="Administrador de sistema">Administrador de sistema</option>
-            </select>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
-            <button type="submit">Asignar Rol</button>
-        </form>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <script src="../js/bott.js"></script>
+
+    <script src="../assets/demo/chart-area-demo.js"></script>
+    <script src="../assets/demo/chart-bar-demo.js"></script>
+    <script src="../js/datatables-simple-demo.js"></script>
+
+
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Las Aguilas Del Saber</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../css/bott.css" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-danger">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="admin2.php">
+            <img src="../img/logo23.png" alt="Logo" style="height: 50px; margin-right: 1px;">
+            Las Aguilas del Saber
+        </a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+                class="fas fa-bars"></i></button>
+
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+
+                    <li>
+                        <hr class="dropdown-divider" />
+                    </li>
+                    <li><a class="dropdown-item" href="../model/cerrar_session.php">Salir</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-danger" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+
+                        <a class="nav-link" href="administrativo.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Panel Administrativo
+                        </a>
+                        <div class="sb-sidenav-menu-heading">General</div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                            data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Paginas
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
+                            data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="admin1.php">Textos-Pagina Principal</a>
+                                <a class="nav-link" href="admin2.php">Textos-Historia del Plantel</a>
+                                <a class="nav-link" href="admin3.php">Textos-Blog</a>
+                                <a class="nav-link" href="admin4.php">Textos-Contactanos</a>
+                                <a class="nav-link" href="admin8.php">Imagenes</a>
+                                <a class="nav-link" href="administrativo.php">Padres</a>
+                                <a class="nav-link" href="admin5.php">Comunicados</a>
+                                <a class="nav-link" href="admin6.php">Profesores</a>
+                                <a class="nav-link" href="admin7.php">Galeria</a>
+                                <a class="nav-link" href="#">Login</a>
+                                <a class="nav-link" href="#">Inscripciones</a>
+                            </nav>
+                        </div>
+
+                    </div>
+                </div>
+
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">Textos Historia del Plantel</h1>
+
+                    <?php include_once("./admin/texto2.php");?>
+
+                </div>
+            </main>
+
+        </div>
     </div>
 
-    <!-- Formulario para ver detalles del administrador -->
-    <div id="viewDetails" class="form-container" style="display: none;">
-        <h2>Ver Detalles de Administrador</h2>
-        <form action="#" method="POST">
-            <label for="adminID">ID del administrador:</label>
-            <input type="number" id="adminID" name="adminID" required>
-            <button type="submit">Ver Detalles</button>
-        </form>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <script src="../js/bott.js"></script>
+
+    <script src="../assets/demo/chart-area-demo.js"></script>
+    <script src="../assets/demo/chart-bar-demo.js"></script>
+    <script src="../js/datatables-simple-demo.js"></script>
+
+
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Las Aguilas Del Saber</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../css/bott.css" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-danger">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="admin3.php">
+            <img src="../img/logo23.png" alt="Logo" style="height: 50px; margin-right: 1px;">
+            Las Aguilas del Saber
+        </a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+                class="fas fa-bars"></i></button>
+
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+
+                    <li>
+                        <hr class="dropdown-divider" />
+                    </li>
+                    <li><a class="dropdown-item" href="../model/cerrar_session.php">Salir</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-danger" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+
+                        <a class="nav-link" href="administrativo.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Panel Administrativo
+                        </a>
+                        <div class="sb-sidenav-menu-heading">General</div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                            data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Paginas
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
+                            data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="admin1.php">Textos-Pagina Principal</a>
+                                <a class="nav-link" href="admin2.php">Textos-Historia del Plantel</a>
+                                <a class="nav-link" href="admin3.php">Textos-Blog</a>
+                                <a class="nav-link" href="admin4.php">Textos-Contactanos</a>
+                                <a class="nav-link" href="admin8.php">Imagenes</a>
+                                <a class="nav-link" href="administrativo.php">Padres</a>
+                                <a class="nav-link" href="admin5.php">Comunicados</a>
+                                <a class="nav-link" href="admin6.php">Profesores</a>
+                                <a class="nav-link" href="admin7.php">Galeria</a>
+                                <a class="nav-link" href="#">Login</a>
+                                <a class="nav-link" href="#">Inscripciones</a>
+                            </nav>
+                        </div>
+
+                    </div>
+                </div>
+
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">Textos de Pagina de Blog</h1>
+
+                    <?php include_once("./admin/texto3.php");?>
+
+                </div>
+            </main>
+
+        </div>
     </div>
 
-    <script>
-        function showForm(formId) {
-            // Ocultar todos los formularios
-            const forms = document.querySelectorAll('.form-container');
-            forms.forEach(form => form.style.display = 'none');
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 
-            // Mostrar el formulario correspondiente
-            document.getElementById(formId).style.display = 'block';
-        }
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <script src="../js/bott.js"></script>
+
+    <script src="../assets/demo/chart-area-demo.js"></script>
+    <script src="../assets/demo/chart-bar-demo.js"></script>
+    <script src="../js/datatables-simple-demo.js"></script>
+
+
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Las Aguilas Del Saber</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../css/bott.css" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-danger">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="admin4.php">
+            <img src="../img/logo23.png" alt="Logo" style="height: 50px; margin-right: 1px;">
+            Las Aguilas del Saber
+        </a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+                class="fas fa-bars"></i></button>
+
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+
+                    <li>
+                        <hr class="dropdown-divider" />
+                    </li>
+                    <li><a class="dropdown-item" href="../model/cerrar_session.php">Salir</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-danger" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+
+                        <a class="nav-link" href="administrativo.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Panel Administrativo
+                        </a>
+                        <div class="sb-sidenav-menu-heading">General</div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                            data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Paginas
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
+                            data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="admin1.php">Textos-Pagina Principal</a>
+                                <a class="nav-link" href="admin2.php">Textos-Historia del Plantel</a>
+                                <a class="nav-link" href="admin3.php">Textos-Blog</a>
+                                <a class="nav-link" href="admin4.php">Textos-Contactanos</a>
+                                <a class="nav-link" href="admin8.php">Imagenes</a>
+                                <a class="nav-link" href="administrativo.php">Padres</a>
+                                <a class="nav-link" href="admin5.php">Comunicados</a>
+                                <a class="nav-link" href="admin6.php">Profesores</a>
+                                <a class="nav-link" href="admin7.php">Galeria</a>
+                                <a class="nav-link" href="#">Login</a>
+                                <a class="nav-link" href="#">Inscripciones</a>
+                            </nav>
+                        </div>
+
+                    </div>
+                </div>
+
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">Textos de Pagina Contactanos</h1>
+
+                    <?php include_once("./admin/texto4.php");?>
+
+                </div>
+            </main>
+
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+    <script src="../js/bott.js"></script>
+
+    <script src="../assets/demo/chart-area-demo.js"></script>
+    <script src="../assets/demo/chart-bar-demo.js"></script>
+    <script src="../js/datatables-simple-demo.js"></script>
+
+
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+</body>
+
+</html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Las Aguilas Del Saber</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../css/bott.css" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-danger">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="admin5.php">
+            <img src="../img/logo23.png" alt="Logo" style="height: 50px; margin-right: 1px;">
+            Las Aguilas del Saber
+        </a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+                class="fas fa-bars"></i></button>
+
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+
+                    <li>
+                        <hr class="dropdown-divider" />
+                    </li>
+                    <li><a class="dropdown-item" href="../model/cerrar_session.php">Salir</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-danger" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+
+                        <a class="nav-link" href="administrativo.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Panel Administrativo
+                        </a>
+                        <div class="sb-sidenav-menu-heading">General</div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                            data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Paginas
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
+                            data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="admin1.php">Textos-Pagina Principal</a>
+                                <a class="nav-link" href="admin2.php">Textos-Historia del Plantel</a>
+                                <a class="nav-link" href="admin3.php">Textos-Blog</a>
+                                <a class="nav-link" href="admin4.php">Textos-Contactanos</a>
+                                <a class="nav-link" href="admin8.php">Imagenes</a>
+                                <a class="nav-link" href="administrativo.php">Padres</a>
+                                <a class="nav-link" href="admin5.php">Comunicados</a>
+                                <a class="nav-link" href="admin6.php">Profesores</a>
+                                <a class="nav-link" href="admin7.php">Galeria</a>
+                                <a class="nav-link" href="#">Login</a>
+                                <a class="nav-link" href="#">Inscripciones</a>
+                            </nav>
+                        </div>
+
+                    </div>
+                </div>
+
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">Comunicados</h1>
+
+                    <?php include_once("./admin/comunicados.php");?>
+
+                </div>
+            </main>
+
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+
+    <script src="../js/bott.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+
+    <script src="../js/datatables-simple-demo.js"></script>
+
+
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
 
 </body>
+
+</html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Las Aguilas Del Saber</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../css/bott.css" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-danger">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="admin6.php">
+            <img src="../img/logo23.png" alt="Logo" style="height: 50px; margin-right: 1px;">
+            Las Aguilas del Saber
+        </a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+                class="fas fa-bars"></i></button>
+
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+
+                    <li>
+                        <hr class="dropdown-divider" />
+                    </li>
+                    <li><a class="dropdown-item" href="../model/cerrar_session.php">Salir</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-danger" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+
+                        <a class="nav-link" href="administrativo.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Panel Administrativo
+                        </a>
+                        <div class="sb-sidenav-menu-heading">General</div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                            data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Paginas
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
+                            data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="admin1.php">Textos-Pagina Principal</a>
+                                <a class="nav-link" href="admin2.php">Textos-Historia del Plantel</a>
+                                <a class="nav-link" href="admin3.php">Textos-Blog</a>
+                                <a class="nav-link" href="admin4.php">Textos-Contactanos</a>
+                                <a class="nav-link" href="admin8.php">Imagenes</a>
+                                <a class="nav-link" href="administrativo.php">Padres</a>
+                                <a class="nav-link" href="admin5.php">Comunicados</a>
+                                <a class="nav-link" href="admin6.php">Profesores</a>
+                                <a class="nav-link" href="admin7.php">Galeria</a>
+                                <a class="nav-link" href="#">Login</a>
+                                <a class="nav-link" href="#">Inscripciones</a>
+                            </nav>
+                        </div>
+
+                    </div>
+                </div>
+
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">Profesores</h1>
+
+                    <?php include_once("./admin/profesores.php");?>
+
+                </div>
+            </main>
+
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+
+    <script src="../js/bott.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+
+    <script src="../js/datatables-simple-demo.js"></script>
+
+
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Las Aguilas Del Saber</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../css/bott.css" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-danger">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="admin7.php">
+            <img src="../img/logo23.png" alt="Logo" style="height: 50px; margin-right: 1px;">
+            Las Aguilas del Saber
+        </a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+                class="fas fa-bars"></i></button>
+
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+
+                    <li>
+                        <hr class="dropdown-divider" />
+                    </li>
+                    <li><a class="dropdown-item" href="../model/cerrar_session.php">Salir</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-danger" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+
+                        <a class="nav-link" href="administrativo.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Panel Administrativo
+                        </a>
+                        <div class="sb-sidenav-menu-heading">General</div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                            data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Paginas
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
+                            data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="admin1.php">Textos-Pagina Principal</a>
+                                <a class="nav-link" href="admin2.php">Textos-Historia del Plantel</a>
+                                <a class="nav-link" href="admin3.php">Textos-Blog</a>
+                                <a class="nav-link" href="admin4.php">Textos-Contactanos</a>
+                                <a class="nav-link" href="admin8.php">Imagenes</a>
+                                <a class="nav-link" href="administrativo.php">Padres</a>
+                                <a class="nav-link" href="admin5.php">Comunicados</a>
+                                <a class="nav-link" href="admin6.php">Profesores</a>
+                                <a class="nav-link" href="admin7.php">Galeria</a>
+                                <a class="nav-link" href="#">Login</a>
+                                <a class="nav-link" href="#">Inscripciones</a>
+                            </nav>
+                        </div>
+
+                    </div>
+                </div>
+
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">Galeria</h1>
+
+                    <?php include_once("./admin/galeria.php");?>
+
+                </div>
+            </main>
+
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+
+    <script src="../js/bott.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+
+    <script src="../js/datatables-simple-demo.js"></script>
+
+
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+</body>
+
+</html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>Las Aguilas Del Saber</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="../css/bott.css" />
+    <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="sb-nav-fixed">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-danger">
+        <!-- Navbar Brand-->
+        <a class="navbar-brand ps-3" href="admin7.php">
+            <img src="../img/logo23.png" alt="Logo" style="height: 50px; margin-right: 1px;">
+            Las Aguilas del Saber
+        </a>
+        <!-- Sidebar Toggle-->
+        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i
+                class="fas fa-bars"></i></button>
+
+        <!-- Navbar-->
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown"
+                    aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+
+                    <li>
+                        <hr class="dropdown-divider" />
+                    </li>
+                    <li><a class="dropdown-item" href="../model/cerrar_session.php">Salir</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-danger" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <div class="nav">
+
+                        <a class="nav-link" href="administrativo.php">
+                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            Panel Administrativo
+                        </a>
+                        <div class="sb-sidenav-menu-heading">General</div>
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
+                            data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
+                            Paginas
+                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                        </a>
+                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne"
+                            data-bs-parent="#sidenavAccordion">
+                            <nav class="sb-sidenav-menu-nested nav">
+                                <a class="nav-link" href="admin1.php">Textos-Pagina Principal</a>
+                                <a class="nav-link" href="admin2.php">Textos-Historia del Plantel</a>
+                                <a class="nav-link" href="admin3.php">Textos-Blog</a>
+                                <a class="nav-link" href="admin4.php">Textos-Contactanos</a>
+                                <a class="nav-link" href="admin8.php">Imagenes</a>
+                                <a class="nav-link" href="administrativo.php">Padres</a>
+                                <a class="nav-link" href="admin5.php">Comunicados</a>
+                                <a class="nav-link" href="admin6.php">Profesores</a>
+                                <a class="nav-link" href="admin7.php">Galeria</a>
+                                <a class="nav-link" href="#">Login</a>
+                                <a class="nav-link" href="#">Inscripciones</a>
+                            </nav>
+                        </div>
+
+                    </div>
+                </div>
+
+            </nav>
+        </div>
+        <div id="layoutSidenav_content">
+            <main>
+                <div class="container-fluid px-4">
+                    <h1 class="mt-4">Imagenes de las Paginas</h1>
+
+                    <?php include_once("./admin/imagenes.php");?>
+
+                </div>
+            </main>
+
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+
+
+    <script src="../js/bott.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+
+    <script src="../js/datatables-simple-demo.js"></script>
+
+
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+</body>
+
 </html>
