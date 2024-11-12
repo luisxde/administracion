@@ -1,89 +1,110 @@
+
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>Gestión de Administradores</title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
-        <link rel="stylesheet" href="../css/bott.css" />
-        <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
-    </head>
-    <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-danger">
-            <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="admin_dashboard.php">
-                <img src="../img/logo23.png" alt="Logo" style="height: 50px; margin-right: 1px;">
-                Las Aguilas del Saber
-            </a>
-            <!-- Navbar-->
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="../model/cerrar_session.php">Salir</a></li>
-                    </ul>
-                </li>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Las Águilas del Saber</title>
+    <link rel="icon" href="logo.png" type="image/png"> <!-- Logo de la página -->
+    <link rel="stylesheet" href="style.css"> <!-- Link al archivo CSS -->
+</head>
+<body>
+
+    <!-- Barra de navegación -->
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="Las Águilas del Saber">
+            <h1>Las Águilas del Saber</h1>
+        </div>
+        <div class="usuario">
+            <img src="user_icon.png" alt="Usuario">
+            <a href="logout.php">Cerrar sesión</a>
+        </div>
+    </header>
+
+    <!-- Menú lateral -->
+    <aside>
+        <nav>
+            <ul>
+                <li><a href="#panel-control">Panel de Control</a></li>
+                <li><a href="#pagina-principal">Página Principal</a></li>
+                <li><a href="#historia">Historia del Plantel</a></li>
+                <li><a href="#blog">Blog</a></li>
+                <li><a href="#contactanos">Contáctanos</a></li>
             </ul>
         </nav>
-        
-        <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-danger" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <a class="nav-link" href="admin_dashboard.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                                Panel Administrativo
-                            </a>
-                            <div class="sb-sidenav-menu-heading">Gestión</div>
-                            <a class="nav-link" href="admin_administradores.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-users-cog"></i></div>
-                                Administradores
-                            </a>
-                            <a class="nav-link" href="admin_usuarios.php">
-                                <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
-                                Usuarios
-                            </a>
-                        </div>
-                    </div>
-                </nav>
-            </div>
-            
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid px-4">
-                        <h1 class="mt-4">Gestión de Administradores</h1>
-                        <p>Aquí puedes gestionar los administradores del sistema. Puedes añadir, editar o eliminar administradores según corresponda.</p>
-                        <!-- Aquí incluiríamos una tabla de administradores o el formulario para añadir nuevos -->
-                        
-                        <table id="tablaAdministradores" class="display">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Nombre</th>
-                                    <th>Email</th>
-                                    <th>Rol</th>
-                                    <th>Acciones</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <!-- Aquí se mostrarán los administradores desde la base de datos -->
-                            </tbody>
-                        </table>
-                    </div>
-                </main>
-            </div>
-        </div>
+    </aside>
 
-        <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-        <script src="../js/bott.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="../js/datatables-simple-demo.js"></script>
-        <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-    </body>
+    <!-- Contenido principal -->
+    <main>
+        <section id="panel-control">
+            <h2>Panel de Control</h2>
+            <div>
+                <h3>General</h3>
+                <!-- Formulario para guardar cambios -->
+                <form method="POST" action="guardar_cambios.php">
+                    <label for="titulo">Título:</label>
+                    <input type="text" id="titulo" name="titulo" value="Las Águilas del Saber" required>
+
+                    <label for="descripcion1">Descripción 1:</label>
+                    <textarea id="descripcion1" name="descripcion1">Patio de juegos es un espacio seguro y divertido...</textarea>
+
+                    <label for="descripcion2">Descripción 2:</label>
+                    <textarea id="descripcion2" name="descripcion2">La música y el baile son partes integrales...</textarea>
+
+                    <!-- Más campos de descripción según el contenido -->
+                    
+                    <button type="submit">Guardar Cambios</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="pagina-principal">
+            <h2>Página Principal</h2>
+            <p><strong>Título:</strong> Las Águilas del Saber</p>
+            <p><strong>Sección 1:</strong> Centro de Educación Inicial Particular</p>
+            <p><strong>Sección 2:</strong> Nuevo enfoque para la educación infantil</p>
+
+            <h3>Descripción de secciones</h3>
+            <ul>
+                <li><strong>Patio de Juegos:</strong> Espacio seguro y divertido...</li>
+                <li><strong>Música y Baile:</strong> Clases de apreciación musical...</li>
+                <li><strong>Artes y Manualidades:</strong> Actividades creativas...</li>
+                <li><strong>Ambiente Sano:</strong> Instalaciones limpias y seguras...</li>
+                <li><strong>Comida Sana:</strong> Opciones de comida equilibrada...</li>
+                <li><strong>Educación de Primera:</strong> Métodos innovadores...</li>
+            </ul>
+        </section>
+
+        <section id="historia">
+            <h2>Historia del Plantel</h2>
+            <p><strong>Descripción:</strong> Conoce nuestra trayectoria y cómo hemos llegado hasta aquí.</p>
+            <p><strong>El primer paso:</strong> El centro educativo inicia su jornada escolar en 2009...</p>
+            <p><strong>La historia continúa:</strong> Janina e Iván Salinas fundan el centro con el enfoque pedagógico...</p>
+        </section>
+
+        <section id="blog">
+            <h2>Blog</h2>
+            <!-- Aquí va el contenido del blog -->
+            <p>Contenido del blog...</p>
+        </section>
+
+        <section id="contactanos">
+            <h2>Contáctanos</h2>
+            <p><strong>Ubicación:</strong> Calle Eloy Alfaro, Celica</p>
+            <p><strong>Correo:</strong> las_aguilas_del_Saber@hotmail.com</p>
+            <p><strong>Celular:</strong> 0979430945</p>
+            <p><strong>Redes sociales:</strong></p>
+            <ul>
+                <li><a href="https://www.facebook.com/Lasaguilasdelsaber">Facebook</a></li>
+                <li><a href="https://www.instagram.com/ebp_lasaguilasdelsaber/">Instagram</a></li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Las Águilas del Saber | Todos los derechos reservados</p>
+    </footer>
+
+</body>
 </html>
