@@ -1,23 +1,25 @@
-
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <title>Las Águilas del Saber</title>
     <link rel="icon" href="logo.png" type="image/png"> <!-- Logo de la página -->
+    
+    <!-- Estilos -->
     <link rel="stylesheet" href="style.css"> <!-- Link al archivo CSS -->
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>Las Aguilas Del Saber</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" href="../css/bott.css"  />
+    <link rel="stylesheet" href="../css/bott.css">
+
+    <!-- Fuentes -->
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>
+
 <body>
 
     <!-- Barra de navegación -->
@@ -47,6 +49,8 @@
 
     <!-- Contenido principal -->
     <main>
+
+        <!-- Panel de Control -->
         <section id="panel-control">
             <h2>Panel de Control</h2>
             <div>
@@ -69,6 +73,7 @@
             </div>
         </section>
 
+        <!-- Página Principal -->
         <section id="pagina-principal">
             <h2>Página Principal</h2>
             <p><strong>Título:</strong> Las Águilas del Saber</p>
@@ -86,6 +91,7 @@
             </ul>
         </section>
 
+        <!-- Historia del Plantel -->
         <section id="historia">
             <h2>Historia del Plantel</h2>
             <p><strong>Descripción:</strong> Conoce nuestra trayectoria y cómo hemos llegado hasta aquí.</p>
@@ -93,12 +99,14 @@
             <p><strong>La historia continúa:</strong> Janina e Iván Salinas fundan el centro con el enfoque pedagógico...</p>
         </section>
 
+        <!-- Blog -->
         <section id="blog">
             <h2>Blog</h2>
             <!-- Aquí va el contenido del blog -->
             <p>Contenido del blog...</p>
         </section>
 
+        <!-- Contáctanos -->
         <section id="contactanos">
             <h2>Contáctanos</h2>
             <p><strong>Ubicación:</strong> Calle Eloy Alfaro, Celica</p>
@@ -110,25 +118,24 @@
                 <li><a href="https://www.instagram.com/ebp_lasaguilasdelsaber/">Instagram</a></li>
             </ul>
         </section>
+
     </main>
 
+    <!-- Footer -->
     <footer>
         <p>&copy; 2024 Las Águilas del Saber | Todos los derechos reservados</p>
     </footer>
 
-</body>
-</html>
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-    
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-<script src="../js/bott.js"></script>
-    
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="../js/bott.js"></script>
     <script src="../assets/demo/chart-area-demo.js"></script>
     <script src="../assets/demo/chart-bar-demo.js"></script>
     <script src="../js/datatables-simple-demo.js"></script>
+    <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
 
-
-<script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
 </body>
+
 </html>
